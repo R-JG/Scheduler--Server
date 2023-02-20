@@ -10,6 +10,14 @@ const schedulerEventSchema: Schema = new mongoose.Schema({
     endMilliseconds: {type: Number, required: true }
 });
 
+schedulerEventSchema.set('toJSON', {
+    transform: (_document, returnedObject) => {
+        returnedObject.eventId = returnedObject._id;
+        delete returnedObject._id;
+        delete returnedObject.__v;
+    }
+});
+
 const SchedulerEventModel = mongoose.model<SchedulerEventDocumentModel>(
     'SchedulerEvent', schedulerEventSchema
 );

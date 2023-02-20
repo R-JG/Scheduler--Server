@@ -3,9 +3,8 @@ import schedulerEventsController from '../controllers/schedulerEventsController'
 
 const router = express.Router();
 
-router.get('/', async (_request, response) => {
-    const allSchedulerEvents = await schedulerEventsController.getAll();
-    response.json(allSchedulerEvents);
-});
+router.get('/', schedulerEventsController.getAll);
+
+router.post('/', schedulerEventsController.create);
 
 export default router;
