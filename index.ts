@@ -1,5 +1,5 @@
-import { PORT } from './src/expressUtils/config';
-import logger from './src/expressUtils/logger';
+import { PORT } from './src/serverUtils/config';
+import logger from './src/serverUtils/logger';
 import app from './src/app';
 
 app.listen(PORT, () => {
