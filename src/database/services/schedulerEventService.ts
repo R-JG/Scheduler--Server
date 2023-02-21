@@ -12,4 +12,9 @@ const create = async (params: NewSchedulerEvent): Promise<SchedulerEvent> => {
     return savedSchedulerEvent;
 };
 
-export default { getAll, create };
+const deleteFromDb = async (schedulerEventId: string): Promise<SchedulerEvent | null> => {
+    const deletedSchedulerEvent = await SchedulerEventModel.findByIdAndDelete(schedulerEventId);
+    return deletedSchedulerEvent;
+};
+
+export default { getAll, create, deleteFromDb };
