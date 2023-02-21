@@ -29,14 +29,14 @@ const create = async (
     };
 };
 
-const deleteEvent = async (
+const remove = async (
         request: Request<{id: string}>, 
         response: Response,
         next: NextFunction
     ): Promise<void> => {
     try {
         const id = request.params.id;
-        const deleteResult = await schedulerEventService.deleteFromDb(id);
+        const deleteResult = await schedulerEventService.remove(id);
         if (deleteResult) {
             response.json(deleteResult);
         } else {
@@ -47,4 +47,23 @@ const deleteEvent = async (
     };
 };
 
-export default { getAll, create, deleteEvent };
+const update = async (
+        request: Request<{id: string}, {}, unknown>,
+        response: Response,
+        next: NextFunction
+    ): Promise<void> => {
+    try {
+        const id = request.params.id;
+        const schedulerEventUpdate = validation.parseNewSchedulerEvent(request.body);
+        const updateResult = await schedulerEventService.update(id, schedulerEventUpdate);
+        if (updateResult) {
+            response.json(updateResult);
+        } else {
+            response.status(404).send('scheduler event not found');
+        };
+    } catch (error) {
+        next(error);
+    };
+};
+
+export default { getAll, create, remove, update };
