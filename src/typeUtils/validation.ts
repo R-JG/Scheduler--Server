@@ -1,4 +1,4 @@
-import { NewSchedulerEvent } from './types';
+import { NewEvent } from './types';
 
 const isString = (params: unknown): params is string => {
     return ((typeof params === 'string') || (params instanceof String));
@@ -22,7 +22,7 @@ const parseNumberProp = (prop: unknown): number => {
     return prop;
 };
 
-const parseNewSchedulerEvent = (params: unknown): NewSchedulerEvent => {
+const parseNewEvent = (params: unknown): NewEvent => {
     if (!params || typeof params !== 'object') {
         throw new Error('incorrect of missing data');
     };
@@ -32,13 +32,13 @@ const parseNewSchedulerEvent = (params: unknown): NewSchedulerEvent => {
     && ('endMilliseconds' in params))) {
         throw new Error('some properties are missing');
     };
-    const newSchedulerEvent = {
+    const newEvent = {
         title: parseStringProp(params.title),
         description: parseStringProp(params.description),
         startMilliseconds: parseNumberProp(params.startMilliseconds),
         endMilliseconds: parseNumberProp(params.endMilliseconds)
     };
-    return newSchedulerEvent;
+    return newEvent;
 };
 
-export default { parseNewSchedulerEvent };
+export default { parseNewEvent };

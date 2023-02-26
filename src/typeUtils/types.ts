@@ -1,4 +1,4 @@
-export interface SchedulerEvent {
+export interface Event {
     eventId: string,
     title: string,
     description: string,
@@ -6,4 +6,4 @@ export interface SchedulerEvent {
     endMilliseconds: number
 };
 
-export type NewSchedulerEvent = Omit<SchedulerEvent, 'eventId'>;
+export type NewEvent = Omit<Event, 'eventId'>;

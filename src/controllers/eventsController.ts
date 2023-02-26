@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import validation from '../typeUtils/validation';
-import schedulerEventService from '../database/services/schedulerEventService';
+import eventService from '../database/services/eventService';
 
 const getAll = async (
         _request: Request, 
@@ -8,8 +8,8 @@ const getAll = async (
         next: NextFunction
     ): Promise<void> => {
     try {
-        const allSchedulerEvents = await schedulerEventService.getAll();
-        response.json(allSchedulerEvents);        
+        const allEvents = await eventService.getAll();
+        response.json(allEvents);        
     } catch (error) {
         next(error);
     };
@@ -21,9 +21,9 @@ const create = async (
         next: NextFunction
     ): Promise<void> => {
     try {
-        const newSchedulerEvent = validation.parseNewSchedulerEvent(request.body);
-        const savedSchedulerEvent = await schedulerEventService.create(newSchedulerEvent);
-        response.json(savedSchedulerEvent);
+        const newEvent = validation.parseNewEvent(request.body);
+        const savedEvent = await eventService.create(newEvent);
+        response.json(savedEvent);
     } catch (error) {
         next(error);
     };
@@ -36,11 +36,11 @@ const remove = async (
     ): Promise<void> => {
     try {
         const id = request.params.id;
-        const deleteResult = await schedulerEventService.remove(id);
+        const deleteResult = await eventService.remove(id);
         if (deleteResult) {
             response.json(deleteResult);
         } else {
-            response.status(404).send('scheduler event not found');
+            response.status(404).send('event not found');
         };
     } catch (error) {
         next(error);
@@ -54,12 +54,12 @@ const update = async (
     ): Promise<void> => {
     try {
         const id = request.params.id;
-        const schedulerEventUpdate = validation.parseNewSchedulerEvent(request.body);
-        const updateResult = await schedulerEventService.update(id, schedulerEventUpdate);
+        const eventUpdate = validation.parseNewEvent(request.body);
+        const updateResult = await eventService.update(id, eventUpdate);
         if (updateResult) {
             response.json(updateResult);
         } else {
-            response.status(404).send('scheduler event not found');
+            response.status(404).send('event not found');
         };
     } catch (error) {
         next(error);

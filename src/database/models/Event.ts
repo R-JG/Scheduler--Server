@@ -1,16 +1,16 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { SchedulerEvent } from '../../typeUtils/types';
+import { Event } from '../../typeUtils/types';
 
-interface SchedulerEventDocumentModel extends SchedulerEvent, Document {};
+interface EventDocumentModel extends Event, Document {};
 
-const schedulerEventSchema: Schema = new mongoose.Schema({
+const eventSchema: Schema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: false },
     startMilliseconds: {type: Number, required: true },
     endMilliseconds: {type: Number, required: true }
 });
 
-schedulerEventSchema.set('toJSON', {
+eventSchema.set('toJSON', {
     transform: (_document, returnedObject) => {
         returnedObject.eventId = returnedObject._id;
         delete returnedObject._id;
@@ -18,8 +18,8 @@ schedulerEventSchema.set('toJSON', {
     }
 });
 
-const SchedulerEventModel = mongoose.model<SchedulerEventDocumentModel>(
-    'SchedulerEvent', schedulerEventSchema
+const EventModel = mongoose.model<EventDocumentModel>(
+    'Event', eventSchema
 );
 
-export default SchedulerEventModel;
+export default EventModel;

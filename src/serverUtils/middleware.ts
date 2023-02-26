@@ -15,6 +15,9 @@ const unknownEndpoint = (_request: Request, response: Response) => {
 };
 
 const errorHandler = (error: any, _request: Request, response: Response, next: NextFunction) => {
+
+    // update the error handler to handle with more specificity
+
     console.error(error);
     response.status(400).json({ error: error.message });
     next(error);
