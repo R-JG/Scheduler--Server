@@ -28,6 +28,7 @@ const parseNewEvent = (params: unknown): NewEvent => {
     };
     if (!(('title' in params) 
     && ('description' in params) 
+    && ('color' in params) 
     && ('startMilliseconds' in params) 
     && ('endMilliseconds' in params))) {
         throw new Error('some properties are missing');
@@ -35,6 +36,7 @@ const parseNewEvent = (params: unknown): NewEvent => {
     const newEvent = {
         title: parseStringProp(params.title),
         description: parseStringProp(params.description),
+        color: parseStringProp(params.color),
         startMilliseconds: parseNumberProp(params.startMilliseconds),
         endMilliseconds: parseNumberProp(params.endMilliseconds)
     };

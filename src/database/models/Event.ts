@@ -6,6 +6,7 @@ interface EventDocumentModel extends Event, Document {};
 const eventSchema: Schema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: false },
+    color: { type: String, required: true },
     startMilliseconds: {type: Number, required: true },
     endMilliseconds: {type: Number, required: true }
 });
